@@ -5,6 +5,8 @@ const client = new Discord.Client();
 let botName;
 const commandPrefix = "?";
 
+client.login('KEY'); // Your Discord Bot Key
+
 const play = (connection, message) => {
     let server = servers[message.guild.id];
 
@@ -22,7 +24,7 @@ let servers = {};
 
 client.on('ready', () => {
     botName = client.user.tag;
-    console.log('Bot is Online! as:', botName);    
+    console.log('Bot Online! Nickname:', botName);    
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
@@ -32,7 +34,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   
     if(!oldUserChannel && newUserChannel) {
   
-      client.channels.get('622428174818607154').send("User went form Channel" + oldUserChannel + "to the new" 
+      client.channels.get('CHANNELID').send("User went form Channel" + oldUserChannel + "to the new" 
              + newUserChannel + "Channel");
         console.log("User went form Channel" + oldUserChannel + "to the new" 
         + newUserChannel.name + "Channel");
@@ -40,30 +42,26 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   
     }
     
-    if (oldUserChannel !== newUserChannel) { // if the channel has changed
+    if (oldUserChannel !== newUserChannel) {
         
-        var user = newUserChannel.members ? newUserChannel.members.map(item => {
+        var user = newUserChannel ? newUserChannel.members.map(item => {
             return item.id;
         }) : "";
 
-        let channel = '619547781404819477';
-
-        // if(user.toString() === '240018676496072704'){ // m0spi
-        //     client.channels.get('619547781404819477').send('Alerta! monpi esta por jugar! salvese quien pueda!', { tts: true }); //240018676496072704            
-        // }
+        let channel = 'CHANNELID'; // CHANNEL ID where the chatbot will send text.
 
         switch(user.toString()){
-            case '240018676496072704':
-                client.channels.get(channel).send('Alerta! monpi esta por jugar! salvese quien pueda!', { tts: true }); //240018676496072704
+            case 'USERID':
+                client.channels.get(channel).send('some text!', { tts: true });
                 break;
-            case '318186694136561666':
-                client.channels.get(channel).send('Llego el puto de Grasi!', { tts: true }); //grasi
+            case 'USERID':
+                client.channels.get(channel).send('some text!', { tts: true });
                 break;
-            case '238496402483838978':
-                client.channels.get(channel).send('Llego Guchita phtzihitgzihzhihzihzihizh', { tts: true }); //gucha
+            case 'USERID':
+                client.channels.get(channel).send('some text', { tts: true });
                 break;
-            case '238779943830552577':
-                client.channels.get(channel).send('Verga llego casal!', { tts: true }); //Casal0x
+            case 'USERID':
+                client.channels.get(channel).send('some text!', { tts: true });
                 break;
             default:
                 break;
@@ -85,18 +83,17 @@ client.on('message', (message) => {
                 var url = args[1];
 
                 if(!url){
-                    message.channel.send('Por favor ingrese un link!');
+                    message.channel.send('Please insert a link!');
                     return;
                 }
 
                 if(!message.member.voiceChannel){
-                    message.channel.send('Tienes que estar en un canal de Voz!');
+                    message.channel.send('You have to be in a voice channel!');
                     return;
                 }
 
                 if(!YTDL.validateURL(url)) {
-                    console.log('sadasd')
-                    message.channel.send('Link de youtube invalido');
+                    message.channel.send('Invalid Youtube link!');
                     return;
                 }
 
@@ -123,28 +120,27 @@ client.on('message', (message) => {
  
                 if(message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
                 break;
-            case 'grasi':
-                message.channel.send('Grasi se la recontra come!', { tts: true })
+
+            // This part is to set up messages when you or someone else write a message with the username configured.
+            case 'username':
+                message.channel.send('some text', { tts: true })
                 break;
-            case 'm0spi':
-                message.channel.send('Alerta! monspi esta por jugar! corran!', { tts: true })
+            case 'username':
+                message.channel.send('some text', { tts: true })
                 break;
-            case 'm0spi':
-                message.channel.send('Alerta! monspi esta por jugar! salvese quien pueda!', { tts: true }) 
+            case 'username':
+                message.channel.send('some text', { tts: true }) 
                 break;
             default:
-                message.channel.send('Nope eso no existe!');
+                message.channel.send('some text');
                 break;
         }
         
     }else{
-        if(message.content.toUpperCase().includes('GRASI')){
-            message.channel.send('Grasi se la come',{
+        if(message.content.toUpperCase().includes('USERNAME')){
+            message.channel.send('some text',{
                 tts: true
             });
         }
     }
 })
-
-
-client.login('NjIyNDI4NjczMzkxNDYwMzgy.XXzwGw.f0P7SXbyPSg8NQV6cH5B2NI2Aac');
